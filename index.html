@@ -3,10 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="author" content="Ahmad Dawami">
-<script>document.documentElement.classList.add('js')</script>
 <title>Panduan Instalasi: GitHub + Supabase + Cloudflare Pages</title>
 <meta name="description" content="Panduan langkah demi langkah memasang aplikasi web di GitHub, Supabase, dan Cloudflare Pages dengan login Gmail (Google OAuth).">
+<meta name="author" content="Ahmad Dawami">
+<meta name="copyright" content="© 2026 Ahmad Dawami">
+<script>document.documentElement.classList.add('js')</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -101,86 +102,139 @@ footer{text-align:center;color:var(--muted);padding:30px 16px 60px;font-size:14p
   section.step{padding:20px 16px;border-radius:20px}
   .hero-box{padding:30px 20px}
 }
-/* ===== ILUSTRASI ===== */
-.illus{position:relative;margin:18px 0;padding:18px;border-radius:20px;border:1px solid var(--line);
-  background:linear-gradient(135deg,color-mix(in srgb,var(--brand) 7%,var(--card)),color-mix(in srgb,var(--brand2) 7%,var(--card)))}
-.illus .cap{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
-.illus .sub{margin:14px 0 0;font-size:14px;color:var(--muted);text-align:center;line-height:1.6}
-.fl{display:flex;gap:10px;align-items:stretch}
-.nd{flex:1;min-width:0;text-align:center;border-radius:16px;padding:14px 10px;background:var(--card);border:1px solid var(--line);box-shadow:0 4px 14px #0000000d;transition:transform .2s}
-.nd:hover{transform:translateY(-3px)}
-.nd .ico{width:54px;height:54px;border-radius:16px;margin:0 auto 8px;display:grid;place-items:center;font-size:27px;color:#fff;background:var(--brand);box-shadow:inset 0 0 0 2px #ffffff22}
-.nd b{display:block;font-size:14px;line-height:1.3}
-.nd small{display:block;color:var(--muted);font-size:12px;line-height:1.45;margin-top:2px}
-.ar{align-self:center;flex:none;font-size:22px;font-weight:800;color:var(--brand);animation:nudge 1.4s ease-in-out infinite}
-@keyframes nudge{0%,100%{transform:none}50%{transform:translateX(5px)}}
-@keyframes nudgeV{0%,100%{transform:rotate(90deg)}50%{transform:rotate(90deg) translateX(5px)}}
-.c-gh{background:var(--gh)!important;color:#fff}
-.c-sb{background:var(--sb)!important;color:#06281b}
-.c-cf{background:var(--cf)!important;color:#fff}
-.c-gg{background:var(--gg)!important;color:#fff}
-.c-ok{background:var(--ok)!important;color:#fff}
-.c-pp{background:#8b5cf6!important;color:#fff}
-.c-sky{background:#0ea5e9!important;color:#fff}
-.c-rd{background:var(--bad)!important;color:#fff}
-/* peta besar (SVG) */
-.map{width:100%;height:auto;display:block}
-.map .nb{fill:var(--card);stroke-width:2.5}
-.map text{font-family:"Plus Jakarta Sans",system-ui,sans-serif;fill:var(--ink);text-anchor:middle}
-.map .t1{font-size:16px;font-weight:800}
-.map .t2{font-size:12.5px;fill:var(--muted)}
-.map .em{font-size:28px}
-.map .lb{font-size:12.5px;font-weight:700;fill:var(--muted)}
-.map .ln{fill:none;stroke:var(--brand);stroke-width:3;stroke-linecap:round;stroke-dasharray:7 7;animation:dash 1.2s linear infinite}
-.map .ln.alt{stroke:var(--brand2)}
-.map .ln.soft{stroke:var(--muted);opacity:.75}
-.map .mk{fill:var(--brand)}
-.map .mk2{fill:var(--brand2)}
-.map .mk3{fill:var(--muted)}
-@keyframes dash{to{stroke-dashoffset:-28}}
-/* linimasa login */
-.seq{list-style:none;margin:0;padding:0}
-.seq li{display:flex;gap:14px;padding:0 0 16px;position:relative}
-.seq li::before{content:"";position:absolute;left:23px;top:50px;bottom:2px;width:2px;background:repeating-linear-gradient(var(--line) 0 6px,transparent 6px 12px)}
-.seq li:last-child{padding-bottom:0}
-.seq li:last-child::before{display:none}
-.seq .dot{width:48px;height:48px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:22px}
-.seq .tx{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px 14px;flex:1;min-width:0}
-.seq .tx b{display:block;font-size:15px}
-.seq .who{display:inline-block;font-size:11px;font-weight:800;border-radius:99px;padding:1px 10px;margin-bottom:4px}
-.seq .tx span.d{display:block;font-size:14px;color:var(--muted);line-height:1.55}
-/* boleh / jangan */
-.vs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-.vs>div{border-radius:16px;padding:14px 16px;border:1px solid}
-.vs .ok{background:color-mix(in srgb,var(--ok) 10%,var(--card));border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
-.vs .no{background:color-mix(in srgb,var(--bad) 9%,var(--card));border-color:color-mix(in srgb,var(--bad) 45%,transparent)}
-.vs h5{margin:0 0 6px;font-size:15px}
-.vs ul{margin:0;padding-left:18px;font-size:14px}
-/* tautan penting */
-.links{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}
-.lk{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 14px;transition:transform .2s,border-color .2s,box-shadow .2s}
-.lk:hover{transform:translateY(-3px);border-color:var(--brand);box-shadow:0 8px 20px #4f46e522}
-.lk .i{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:20px;flex:none;color:#fff}
-.lk b{display:block;font-size:14.5px;line-height:1.3}
-.lk small{display:block;color:var(--muted);font-size:12px;word-break:break-all}
-.lk .go{margin-left:auto;color:var(--brand);font-weight:800}
-a.ext{font-weight:600}
-/* animasi muncul + tombol atas */
-html.js .step,html.js .illus{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
-html.js .step.in,html.js .illus.in{opacity:1;transform:none}
-.up{position:fixed;right:16px;bottom:16px;width:46px;height:46px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff;font-size:20px;cursor:pointer;box-shadow:0 8px 20px #0003;opacity:0;pointer-events:none;transition:opacity .3s;z-index:30}
-.up.show{opacity:1;pointer-events:auto}
-.copy{margin-top:8px;font-weight:600}
-@media (max-width:700px){
-  .fl{flex-direction:column}
-  .ar{animation-name:nudgeV;transform:rotate(90deg)}
-  .vs,.links{grid-template-columns:1fr}
-  .illus{padding:14px}
+/* ===== Tambahan: tampilan, ilustrasi, animasi ===== */
+::selection{background:var(--brand);color:#fff}
+.hero-box{background-size:140% 140%;animation:grad 14s ease-in-out infinite alternate}
+@keyframes grad{from{background-position:0% 50%}to{background-position:100% 50%}}
+.hero-box::before,.hero-box::after{content:"";position:absolute;border-radius:50%;pointer-events:none}
+.hero-box::before{width:260px;height:260px;right:-60px;bottom:-90px;background:#ffffff1f;animation:float 9s ease-in-out infinite}
+.hero-box::after{width:140px;height:140px;right:190px;top:-50px;background:#22d3ee33;animation:float 7s ease-in-out infinite reverse}
+@keyframes float{50%{transform:translateY(-18px)}}
+.hero-box>*{position:relative;z-index:1}
+.by{margin-top:18px;font-size:14px;opacity:.92}
+section.step{box-shadow:0 12px 30px -24px rgba(30,40,100,.55)}
+section.step:hover{border-color:color-mix(in srgb,var(--brand) 35%,var(--line))}
+.badge{box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
+.js section.step{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease,border-color .25s}
+.js section.step.in{opacity:1;transform:none}
+nav.toc a.active{background:color-mix(in srgb,var(--brand) 14%,transparent);color:var(--brand)}
+a.ext:not(.qcard)::after{content:"↗";font-size:.8em;margin-left:3px;opacity:.7}
+.qgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:14px 0}
+.qcard{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-top:4px solid var(--c,var(--brand));border-radius:16px;padding:14px 16px;transition:transform .2s,box-shadow .2s}
+.qcard:hover{transform:translateY(-3px);box-shadow:0 14px 26px -16px rgba(30,40,100,.5)}
+.qcard .qi{font-size:26px;display:block}
+.qcard b{display:block}
+.qcard b::after{content:" ↗";color:var(--c,var(--brand));font-size:.85em}
+.qcard small{display:block;color:var(--muted);line-height:1.45}
+.dgwrap{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--brand) 5%,transparent),transparent);padding:10px;-webkit-overflow-scrolling:touch}
+.dg{display:block;width:100%;min-width:640px;height:auto}
+.dg .bx{fill:var(--card);stroke-width:2.5}
+.dg .em{font-size:26px}
+.dg .t1{font:700 16px "Plus Jakarta Sans",sans-serif;fill:var(--ink)}
+.dg .t2{font:500 12.5px "Plus Jakarta Sans",sans-serif;fill:var(--muted)}
+.dg .t3{font:700 12.5px "Plus Jakarta Sans",sans-serif;fill:var(--brand)}
+.hint{display:none;font-size:13px;color:var(--muted);margin:-6px 0 8px}
+.cap{font-size:14px;color:var(--muted);margin:6px 0 0}
+.flowx{display:grid;grid-template-columns:repeat(var(--n,4),1fr);gap:30px;margin:26px 0 18px;counter-reset:f}
+.fx{position:relative;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 12px 14px;text-align:center;transition:transform .2s;box-shadow:0 10px 24px -20px rgba(30,40,100,.6)}
+.fx:hover{transform:translateY(-3px)}
+.fx::before{counter-increment:f;content:counter(f);position:absolute;top:-11px;left:14px;width:22px;height:22px;border-radius:50%;background:var(--brand);color:#fff;font-size:12px;font-weight:800;display:grid;place-items:center}
+.fx .ico{font-size:32px;display:block;line-height:1.2}
+.fx b{display:block;font-size:14px;margin-top:4px;line-height:1.3}
+.fx small{display:block;color:var(--muted);font-size:12.5px;line-height:1.45;margin-top:2px}
+.fx:not(:last-child)::after{content:"→";position:absolute;right:-24px;top:50%;transform:translateY(-50%);color:var(--brand);font-weight:800;font-size:20px}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0}
+.cmp>div{border-radius:16px;padding:16px;border:1px solid;text-align:center}
+.cmp .big{font-size:38px;display:block}
+.cmp b{display:block;margin:2px 0 4px}
+.cmp p{margin:0;font-size:14.5px;color:var(--muted)}
+.cmp-bad{background:color-mix(in srgb,var(--bad) 9%,transparent);border-color:color-mix(in srgb,var(--bad) 40%,transparent)}
+.cmp-ok{background:color-mix(in srgb,var(--ok) 10%,transparent);border-color:color-mix(in srgb,var(--ok) 45%,transparent)}
+.totop{position:fixed;right:16px;bottom:18px;width:44px;height:44px;border-radius:50%;border:0;background:var(--brand);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 8px 20px -6px rgba(79,70,229,.6);opacity:0;pointer-events:none;transition:opacity .25s;z-index:30}
+.totop.show{opacity:1;pointer-events:auto}
+footer.foot{border-top:1px solid var(--line);padding:28px 16px 70px}
+.foot .copy{font-weight:700;color:var(--ink);font-size:15px}
+.foot small{display:block;margin:6px auto 0;max-width:640px;line-height:1.5}
+@media (max-width:1100px){
+  .flowx{grid-template-columns:1fr;gap:28px}
+  .fx{display:grid;grid-template-columns:48px 1fr;column-gap:12px;text-align:left;align-items:center;padding:16px 14px}
+  .fx .ico{grid-row:span 2}
+  .fx b{margin-top:0}
+  .fx:not(:last-child)::after{content:"↓";right:auto;left:30px;top:auto;bottom:-27px;transform:none}
 }
-@media (prefers-reduced-motion:reduce){
-  .map .ln,.ar{animation:none}
-  html.js .step,html.js .illus{opacity:1;transform:none;transition:none}
-  html{scroll-behavior:auto}
+@media (max-width:860px){.hint{display:block}.cmp{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.js section.step{opacity:1;transform:none}}
+
+/* ===== Perbaikan responsif HP + daftar isi khusus HP ===== */
+html{-webkit-text-size-adjust:100%}
+body{overflow-x:clip}
+.layout{grid-template-columns:240px minmax(0,1fr)}
+main,.step,.codebox{min-width:0}
+main{overflow-wrap:break-word}
+pre{max-width:100%;-webkit-overflow-scrolling:touch}
+.head h2{min-width:0}
+.note>div{min-width:0}
+.qgrid{grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr))}
+.hint{display:none!important}
+.only-m{display:none}
+.fab,.sheet{display:none}
+@media (max-width:760px){
+  .dgwrap{display:none}
+  .only-m{display:grid}
+}
+@media (max-width:860px){
+  .layout{grid-template-columns:minmax(0,1fr);gap:0;padding:8px 12px 120px}
+  nav.toc{display:none!important}
+  .top-in{padding:8px 12px;gap:10px}
+  .hero{padding:20px 12px 8px}
+  .hero-box{padding:26px 18px;border-radius:22px}
+  .hero p{font-size:16px}
+  .chips{margin-top:16px}
+  .chip{font-size:13px;padding:5px 11px}
+  .flow{gap:6px;font-size:13px;margin-top:18px}
+  .flow b{padding:6px 10px}
+  section.step{margin-bottom:16px}
+  pre{font-size:12.5px;padding:34px 12px 12px}
+  .codebox button{padding:6px 12px}
+  .qgrid{gap:10px}
+
+  .fab{display:flex;position:fixed;left:14px;bottom:calc(14px + env(safe-area-inset-bottom));z-index:40;max-width:calc(100% - 84px);align-items:center;gap:10px;border:0;border-radius:99px;padding:7px 18px 7px 7px;background:var(--ink);color:var(--bg);box-shadow:0 12px 28px -10px rgba(0,0,0,.55);cursor:pointer;font:inherit;text-align:left}
+  .fab .fi{width:40px;height:40px;border-radius:50%;background:var(--brand);color:#fff;display:grid;place-items:center;font-size:19px;flex:none}
+  .fab .ft{min-width:0;display:block;line-height:1.25}
+  .fab small{display:block;font-size:11px;opacity:.78}
+  .fab b{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .totop{bottom:calc(18px + env(safe-area-inset-bottom))}
+
+  .sheet{display:block;position:fixed;inset:0;z-index:60;visibility:hidden;pointer-events:none;transition:visibility 0s .3s}
+  .sheet.open{visibility:visible;pointer-events:auto;transition:none}
+  .sheet-bg{position:absolute;inset:0;background:rgba(8,12,30,.55);opacity:0;transition:opacity .25s}
+  .sheet.open .sheet-bg{opacity:1}
+  .sheet-box{position:absolute;left:0;right:0;bottom:0;max-height:85vh;max-height:85dvh;display:flex;flex-direction:column;background:var(--card);color:var(--ink);border:1px solid var(--line);border-bottom:0;border-radius:24px 24px 0 0;transform:translateY(100%);transition:transform .3s ease;padding-bottom:env(safe-area-inset-bottom)}
+  .sheet.open .sheet-box{transform:none}
+  .grab{width:44px;height:5px;border-radius:99px;background:var(--line);margin:10px auto 2px;flex:none}
+  .sheet-h{display:flex;align-items:center;gap:10px;padding:6px 8px 8px 20px;flex:none}
+  .sheet-h b{font-size:18px;flex:1}
+  .sheet-h .sp{font-weight:800;color:var(--brand);font-size:14px}
+  .sheet-h button{width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--ink);font-size:20px;cursor:pointer}
+  .sheet-prog{height:6px;background:var(--line);margin:0 20px 8px;border-radius:99px;overflow:hidden;flex:none}
+  .sheet-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2))}
+  .sheet-list{overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:12px}
+  .sl{display:flex;align-items:center;gap:14px;padding:12px 20px;min-height:60px;text-decoration:none;color:var(--ink);border-top:1px solid var(--line)}
+  .sl .sn{width:36px;height:36px;border-radius:50%;background:color-mix(in srgb,var(--brand) 12%,transparent);color:var(--brand);font-weight:800;display:grid;place-items:center;flex:none;font-size:15px}
+  .sl.done .sn{background:var(--ok);color:#fff}
+  .sl.active{background:color-mix(in srgb,var(--brand) 9%,transparent)}
+  .sl .st{min-width:0}
+  .sl b{display:block;font-size:15px;line-height:1.3}
+  .sl small{display:block;color:var(--muted);font-size:12.5px;line-height:1.35}
+}
+@media (max-width:480px){
+  .logo{font-size:15px}
+  .head{gap:10px}
+  .head h2{font-size:18px}
+  .head small{font-size:13px}
+  .badge{width:38px;height:38px;font-size:17px;border-radius:12px}
+  h3{font-size:16px}
+  section.step{padding:18px 14px}
 }
 </style>
 </head>
@@ -203,18 +257,18 @@ html.js .step.in,html.js .illus.in{opacity:1;transform:none}
       <span class="chip">⏱ ± 45 menit</span>
       <span class="chip">💸 Bisa 100% gratis</span>
       <span class="chip">📱 Tanpa server sendiri</span>
-      <span class="chip">✍️ Oleh Ahmad Dawami</span>
     </div>
     <div class="flow">
       <b>GitHub</b><em>→</em><b>Supabase</b><em>→</em><b>Google Login</b><em>→</em><b>Cloudflare Pages</b><em>→</em><b>🎉 Live</b>
     </div>
+    <div class="by">✍️ Disusun oleh <b>Ahmad Dawami</b></div>
   </div>
 </div>
 
 <div class="layout">
 <nav class="toc" id="toc">
   <h4>Daftar langkah</h4>
-  <a href="#peta"><span class="n">🗺</span>Gambaran besar</a>
+  <a href="#gambaran"><span class="n">🗺️</span>Gambaran besar</a>
   <a href="#s0" data-s="0"><span class="n">0</span>Persiapan</a>
   <a href="#s1" data-s="1"><span class="n">1</span>GitHub</a>
   <a href="#s2" data-s="2"><span class="n">2</span>Supabase</a>
@@ -222,63 +276,89 @@ html.js .step.in,html.js .illus.in{opacity:1;transform:none}
   <a href="#s4" data-s="4"><span class="n">4</span>Cloudflare Pages</a>
   <a href="#domain"><span class="n">+</span>Domain sendiri</a>
   <a href="#s5" data-s="5"><span class="n">5</span>Uji &amp; Selesai</a>
-  <a href="#tautan"><span class="n">🔗</span>Tautan penting</a>
   <a href="#bantuan"><span class="n">?</span>Masalah umum</a>
   <a href="#panduan-ini"><span class="n">★</span>Tayangkan panduan ini</a>
+  <a href="#tautan"><span class="n">📚</span>Tautan resmi</a>
 </nav>
 
 <main>
 
 <!-- GAMBARAN BESAR -->
-<section class="step" id="peta">
-  <div class="head"><div class="badge" style="background:linear-gradient(135deg,var(--brand),var(--brand2))">🗺</div>
-    <h2>Gambaran besar dulu<small>Pahami siapa mengerjakan apa sebelum mulai</small></h2></div>
-  <p>Aplikasi Anda terdiri dari <b>tiga "petugas"</b> yang bekerja sama. Bayangkan sebuah toko: GitHub adalah <b>gudang</b> tempat barang disimpan, Cloudflare Pages adalah <b>etalase</b> yang dilihat pembeli, dan Supabase adalah <b>kasir + buku catatan</b> yang mengenali pembeli dan menyimpan datanya.</p>
+<section class="step" id="gambaran">
+  <div class="head"><div class="badge" style="background:linear-gradient(135deg,#4f46e5,#06b6d4)">🗺️</div>
+    <h2>Gambaran besar<small>Pahami cara kerjanya dulu sebelum mulai</small></h2></div>
+  <p>Aplikasi Anda berupa halaman web biasa. Empat layanan bekerja bersama dan <b>Anda tidak perlu menyewa server</b>: GitHub menyimpan kode, Cloudflare Pages menayangkannya, Google memverifikasi Gmail, dan Supabase menyimpan data serta sesi login.</p>
 
-  <div class="illus">
-    <p class="cap">Peta besar · siapa terhubung ke siapa</p>
-    <svg class="map" viewBox="0 0 720 440" role="img" aria-label="Diagram hubungan GitHub, Cloudflare Pages, Supabase, Google, domain, dan pengguna">
-      <defs>
-        <marker id="ah" markerWidth="5" markerHeight="5" refX="3.6" refY="2.5" orient="auto-start-reverse"><path d="M0 0L5 2.5L0 5z" class="mk"/></marker>
-        <marker id="ah2" markerWidth="5" markerHeight="5" refX="3.6" refY="2.5" orient="auto-start-reverse"><path d="M0 0L5 2.5L0 5z" class="mk2"/></marker>
-        <marker id="ah3" markerWidth="5" markerHeight="5" refX="3.6" refY="2.5" orient="auto-start-reverse"><path d="M0 0L5 2.5L0 5z" class="mk3"/></marker>
-      </defs>
-      <!-- node -->
-      <rect class="nb" x="30" y="30" width="170" height="100" rx="20" style="stroke:var(--ink)"/>
-      <text class="em" x="115" y="68">🐙</text><text class="t1" x="115" y="94">GitHub</text><text class="t2" x="115" y="113">simpan kode</text>
+  <div class="dgwrap" role="img" aria-label="Diagram: Anda mengunggah kode ke GitHub, Cloudflare Pages menayangkannya ke pengguna, lalu pengguna masuk lewat Google dan Supabase">
+  <svg class="dg" viewBox="0 0 760 350" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#7c86a8"/></marker></defs>
 
-      <rect class="nb" x="275" y="30" width="170" height="100" rx="20" style="stroke:var(--cf)"/>
-      <text class="em" x="360" y="68">☁️</text><text class="t1" x="360" y="94">Cloudflare Pages</text><text class="t2" x="360" y="113">menayangkan situs</text>
+    <rect class="bx" x="20" y="236" width="170" height="96" rx="16" style="stroke:#8b5cf6"/>
+    <text class="em" x="105" y="276" text-anchor="middle">💻</text>
+    <text class="t1" x="105" y="302" text-anchor="middle">Anda</text>
+    <text class="t2" x="105" y="320" text-anchor="middle">Mengedit kode</text>
 
-      <rect class="nb" x="520" y="30" width="170" height="100" rx="20" style="stroke:#0ea5e9;stroke-dasharray:6 5"/>
-      <text class="em" x="605" y="68">🌐</text><text class="t1" x="605" y="94">Domain Anda</text><text class="t2" x="605" y="113">opsional</text>
+    <rect class="bx" x="20" y="40" width="170" height="96" rx="16" style="stroke:#6e7681"/>
+    <text class="em" x="105" y="80" text-anchor="middle">🐙</text>
+    <text class="t1" x="105" y="106" text-anchor="middle">GitHub</text>
+    <text class="t2" x="105" y="124" text-anchor="middle">Menyimpan kode</text>
 
-      <rect class="nb" x="30" y="260" width="170" height="100" rx="20" style="stroke:var(--gg)"/>
-      <text class="em" x="115" y="298">🔐</text><text class="t1" x="115" y="324">Google</text><text class="t2" x="115" y="343">akun Gmail</text>
+    <rect class="bx" x="295" y="40" width="170" height="96" rx="16" style="stroke:#f38020"/>
+    <text class="em" x="380" y="80" text-anchor="middle">☁️</text>
+    <text class="t1" x="380" y="106" text-anchor="middle">Cloudflare Pages</text>
+    <text class="t2" x="380" y="124" text-anchor="middle">Menayangkan situs</text>
 
-      <rect class="nb" x="275" y="260" width="170" height="100" rx="20" style="stroke:var(--brand)"/>
-      <text class="em" x="360" y="298">📱</text><text class="t1" x="360" y="324">Pengguna</text><text class="t2" x="360" y="343">buka di HP / PC</text>
+    <rect class="bx" x="570" y="40" width="170" height="96" rx="16" style="stroke:#4f46e5"/>
+    <text class="em" x="655" y="80" text-anchor="middle">📱</text>
+    <text class="t1" x="655" y="106" text-anchor="middle">Pengguna</text>
+    <text class="t2" x="655" y="124" text-anchor="middle">Buka di HP / komputer</text>
 
-      <rect class="nb" x="520" y="260" width="170" height="100" rx="20" style="stroke:var(--sb)"/>
-      <text class="em" x="605" y="298">⚡</text><text class="t1" x="605" y="324">Supabase</text><text class="t2" x="605" y="343">login + database</text>
+    <rect class="bx" x="295" y="236" width="170" height="96" rx="16" style="stroke:#4285f4"/>
+    <text class="em" x="380" y="276" text-anchor="middle">🔐</text>
+    <text class="t1" x="380" y="302" text-anchor="middle">Google</text>
+    <text class="t2" x="380" y="320" text-anchor="middle">Verifikasi akun Gmail</text>
 
-      <!-- garis -->
-      <path class="ln" d="M202 80 L270 80" marker-end="url(#ah)"/><text class="lb" x="236" y="70">otomatis</text>
-      <path class="ln alt" d="M518 80 L450 80" marker-end="url(#ah2)"/><text class="lb" x="484" y="70">alamat</text>
-      <path class="ln" d="M360 132 L360 255" marker-end="url(#ah)"/><text class="lb" x="372" y="200" style="text-anchor:start">tampil di browser</text>
-      <path class="ln alt" d="M272 310 L204 310" marker-start="url(#ah2)" marker-end="url(#ah2)"/><text class="lb" x="238" y="300">Gmail</text>
-      <path class="ln" d="M448 310 L516 310" marker-start="url(#ah)" marker-end="url(#ah)"/><text class="lb" x="482" y="300">data</text>
-      <path class="ln soft" d="M115 364 C115 428, 605 428, 605 364" marker-start="url(#ah3)" marker-end="url(#ah3)"/>
-      <text class="lb" x="360" y="436">Supabase memverifikasi akun lewat Google (OAuth)</text>
-    </svg>
-    <p class="sub">Garis yang bergerak menunjukkan arah data. Anda hanya "menyentuh" GitHub, sisanya berjalan otomatis.</p>
+    <rect class="bx" x="570" y="236" width="170" height="96" rx="16" style="stroke:#3ecf8e"/>
+    <text class="em" x="655" y="276" text-anchor="middle">🗄️</text>
+    <text class="t1" x="655" y="302" text-anchor="middle">Supabase</text>
+    <text class="t2" x="655" y="320" text-anchor="middle">Login + database</text>
+
+    <line x1="105" y1="234" x2="105" y2="140" stroke="#7c86a8" stroke-width="2" marker-end="url(#ar)"/>
+    <text class="t3" x="116" y="190">upload kode</text>
+
+    <line x1="192" y1="88" x2="293" y2="88" stroke="#7c86a8" stroke-width="2" marker-end="url(#ar)"/>
+    <text class="t3" x="242" y="76" text-anchor="middle">git push</text>
+    <text class="t2" x="242" y="108" text-anchor="middle">auto-deploy</text>
+
+    <line x1="467" y1="88" x2="568" y2="88" stroke="#7c86a8" stroke-width="2" marker-end="url(#ar)"/>
+    <text class="t3" x="518" y="76" text-anchor="middle">HTTPS</text>
+    <text class="t2" x="518" y="108" text-anchor="middle">situs tampil</text>
+
+    <line x1="655" y1="138" x2="655" y2="234" stroke="#7c86a8" stroke-width="2" marker-end="url(#ar)"/>
+    <text class="t3" x="645" y="184" text-anchor="end">login &amp; data</text>
+    <text class="t2" x="645" y="200" text-anchor="end">kunci publik + RLS</text>
+
+    <line x1="568" y1="284" x2="467" y2="284" stroke="#7c86a8" stroke-width="2" marker-start="url(#ar)" marker-end="url(#ar)"/>
+    <text class="t3" x="518" y="272" text-anchor="middle">verifikasi</text>
+    <text class="t2" x="518" y="304" text-anchor="middle">akun Gmail</text>
+  </svg>
   </div>
+  <div class="flowx only-m" style="--n:6">
+    <div class="fx"><span class="ico">💻</span><b>Anda mengedit kode</b><small>Ubah file aplikasi di komputer</small></div>
+    <div class="fx"><span class="ico">🐙</span><b>GitHub menyimpan</b><small>Kode diunggah (push) ke repository</small></div>
+    <div class="fx"><span class="ico">☁️</span><b>Cloudflare Pages menayangkan</b><small>Situs terbit otomatis di pages.dev</small></div>
+    <div class="fx"><span class="ico">📱</span><b>Pengguna membuka situs</b><small>Lewat HP atau komputer, dengan HTTPS</small></div>
+    <div class="fx"><span class="ico">🔐</span><b>Google memverifikasi</b><small>Pengguna memilih akun Gmail</small></div>
+    <div class="fx"><span class="ico">🗄️</span><b>Supabase menyimpan sesi &amp; data</b><small>Login dan database, diamankan dengan RLS</small></div>
+  </div>
+  <p class="cap">Panah menunjukkan arah data. Kunci rahasia (<code>service_role</code>, Client Secret) tidak pernah ikut ke browser pengguna.</p>
 
-  <div class="grid2">
-    <div class="mini"><b>🐙 GitHub</b>Tempat file aplikasi disimpan rapi dengan riwayat perubahan.</div>
-    <div class="mini"><b>☁️ Cloudflare Pages</b>Mengambil file dari GitHub lalu menayangkannya ke internet, gratis dan cepat.</div>
-    <div class="mini"><b>⚡ Supabase</b>Menyimpan data, mengelola pengguna, dan menangani proses login.</div>
-    <div class="mini"><b>🔐 Google</b>Memastikan pengunjung benar-benar pemilik akun Gmail, tanpa Anda mengurus kata sandi.</div>
+  <h3>Tautan cepat (buka di tab baru)</h3>
+  <div class="qgrid">
+    <a class="qcard" style="--c:#6e7681" href="https://github.com/new" target="_blank" rel="noopener noreferrer"><span class="qi">🐙</span><b>GitHub</b><small>Buat repository baru</small></a>
+    <a class="qcard" style="--c:#3ecf8e" href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer"><span class="qi">🗄️</span><b>Supabase</b><small>Dashboard project</small></a>
+    <a class="qcard" style="--c:#4285f4" href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer"><span class="qi">🔐</span><b>Google Cloud</b><small>Buat OAuth Client ID</small></a>
+    <a class="qcard" style="--c:#f38020" href="https://dash.cloudflare.com/" target="_blank" rel="noopener noreferrer"><span class="qi">☁️</span><b>Cloudflare</b><small>Workers &amp; Pages</small></a>
   </div>
 </section>
 
@@ -288,10 +368,10 @@ html.js .step.in,html.js .illus.in{opacity:1;transform:none}
     <h2>Persiapan<small>Siapkan akun dan catatan</small></h2></div>
   <table>
     <tr><th>Layanan</th><th>Alamat</th><th>Fungsi</th></tr>
-    <tr><td><b>GitHub</b></td><td><code>github.com</code></td><td>Menyimpan kode &amp; versi</td></tr>
-    <tr><td><b>Supabase</b></td><td><code>supabase.com</code></td><td>Database + autentikasi</td></tr>
-    <tr><td><b>Google Cloud</b></td><td><code>console.cloud.google.com</code></td><td>Membuat kunci "Masuk dengan Google"</td></tr>
-    <tr><td><b>Cloudflare</b></td><td><code>dash.cloudflare.com</code></td><td>Hosting Pages (alamat <code>*.pages.dev</code>)</td></tr>
+    <tr><td><b>GitHub</b></td><td><a href="https://github.com/" target="_blank" rel="noopener noreferrer"><code>github.com</code></a></td><td>Menyimpan kode &amp; versi</td></tr>
+    <tr><td><b>Supabase</b></td><td><a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer"><code>supabase.com</code></a></td><td>Database + autentikasi</td></tr>
+    <tr><td><b>Google Cloud</b></td><td><a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer"><code>console.cloud.google.com</code></a></td><td>Membuat kunci "Masuk dengan Google"</td></tr>
+    <tr><td><b>Cloudflare</b></td><td><a href="https://dash.cloudflare.com/" target="_blank" rel="noopener noreferrer"><code>dash.cloudflare.com</code></a></td><td>Hosting Pages (alamat <code>*.pages.dev</code>)</td></tr>
   </table>
   <div class="note info"><span class="ic">📝</span><div>Siapkan satu catatan untuk menyimpan nilai-nilai ini, nanti dipakai di beberapa tempat:
     <ul>
@@ -308,21 +388,9 @@ html.js .step.in,html.js .illus.in{opacity:1;transform:none}
   <div class="head"><div class="badge" style="background:var(--gh)">1</div>
     <h2>Unggah kode ke GitHub<small>Tempat kode aplikasi disimpan</small></h2></div>
 
-  <div class="illus">
-    <p class="cap">Ilustrasi · alur kode</p>
-    <div class="fl">
-      <div class="nd"><div class="ico c-pp">💻</div><b>Folder di komputer</b><small>index.html, css, js</small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-gh">🐙</div><b>Repository GitHub</b><small>branch <code>main</code></small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-cf">☁️</div><b>Cloudflare Pages</b><small>membaca otomatis</small></div>
-    </div>
-    <p class="sub">Anggap repository sebagai "lemari arsip online": setiap file yang disimpan di sana otomatis diambil oleh Cloudflare.</p>
-  </div>
-
   <h3>Cara mudah (lewat browser)</h3>
   <ol class="s">
-    <li>Buka <a href="https://github.com/new" target="_blank" rel="noopener noreferrer" class="ext">github.com/new ↗</a> (atau masuk ke GitHub, klik tanda <b>+</b> di kanan atas → <b>New repository</b>).</li>
+    <li>Buka <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">github.com/new</a> (atau klik tanda <b>+</b> di kanan atas GitHub → <b>New repository</b>).</li>
     <li>Isi <b>Repository name</b> (contoh <span class="ph">nama-aplikasi</span>). Pilih <b>Private</b> bila kode tidak ingin dilihat umum (Cloudflare tetap bisa membacanya setelah Anda beri izin).</li>
     <li>Klik <b>Create repository</b>, lalu pilih <b>uploading an existing file</b>.</li>
     <li>Seret semua file aplikasi (<code>index.html</code>, folder <code>css</code>, <code>js</code>, dst.) ke halaman itu, lalu klik <b>Commit changes</b>.</li>
@@ -347,12 +415,6 @@ git push -u origin main</pre></div>
 └─ js/app.js</pre></div>
 
   <div class="note warn"><span class="ic">⚠️</span><div><b>Jangan pernah</b> mengunggah <code>service_role key</code>, kata sandi database, atau <i>Client Secret</i> Google ke GitHub. Hanya kunci <b>publik</b> (anon/publishable) yang boleh ada di kode.</div></div>
-  <div class="vs">
-    <div class="ok"><h5>🟢 Boleh ada di GitHub</h5>
-      <ul><li>Project URL Supabase</li><li>Kunci <b>anon / publishable</b></li><li>Client ID Google</li><li>File HTML, CSS, JS</li></ul></div>
-    <div class="no"><h5>🔴 Jangan pernah di GitHub</h5>
-      <ul><li><code>service_role</code> key</li><li>Client <b>Secret</b> Google</li><li>Password database</li><li>Token pribadi (API token)</li></ul></div>
-  </div>
   <label class="chk"><input type="checkbox" data-step="1"> Kode sudah ada di GitHub</label>
 </section>
 
@@ -361,23 +423,9 @@ git push -u origin main</pre></div>
   <div class="head"><div class="badge" style="background:var(--sb);color:#06281b">2</div>
     <h2>Siapkan Supabase<small>Database, tabel profil, dan keamanan</small></h2></div>
 
-  <div class="illus">
-    <p class="cap">Ilustrasi · apa yang terjadi di database</p>
-    <div class="fl">
-      <div class="nd"><div class="ico c-gg">👤</div><b>Pengguna login</b><small>tercatat di <code>auth.users</code></small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-pp">⚙️</div><b>Trigger otomatis</b><small>membuat profil baru</small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-sb">🗂️</div><b>Tabel <code>profiles</code></b><small>nama, email, foto, role</small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-rd">🛡️</div><b>RLS aktif</b><small>akses dijaga per baris</small></div>
-    </div>
-    <p class="sub">RLS ibarat satpam di setiap laci: pengguna hanya bisa membuka laci miliknya sendiri, kecuali admin.</p>
-  </div>
-
   <h3>2.1 Buat project</h3>
   <ol class="s">
-    <li>Masuk ke <code>supabase.com</code> → <b>New project</b>.</li>
+    <li>Masuk ke <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer"><code>supabase.com/dashboard</code></a> → <b>New project</b>.</li>
     <li>Isi nama project, buat <b>Database Password</b> yang kuat (simpan!), pilih region terdekat (mis. <b>Singapore</b>).</li>
     <li>Tunggu 1–2 menit sampai project aktif.</li>
   </ol>
@@ -464,6 +512,12 @@ where email = '<span class="ph">emailanda@gmail.com</span>';</pre></div>
 
   <div class="note tip"><span class="ic">💡</span><div>Setiap tabel baru yang Anda buat untuk aplikasi (data pegawai, transaksi, dll.) <b>wajib</b> diaktifkan RLS-nya dan diberi <i>policy</i>. Tanpa RLS, siapa pun yang memegang kunci publik bisa membaca datanya.</div></div>
 
+  <h3>Mengapa RLS penting?</h3>
+  <div class="cmp">
+    <div class="cmp-bad"><span class="big">🔓</span><b>Tanpa RLS</b><p>Siapa pun yang memegang kunci publik bisa membaca <i>semua</i> baris di tabel.</p></div>
+    <div class="cmp-ok"><span class="big">🔒</span><b>Dengan RLS + policy</b><p>Setiap pengguna hanya melihat baris miliknya, atau sesuai peran (mis. admin).</p></div>
+  </div>
+
   <div class="note warn"><span class="ic">⏸️</span><div><b>Paket gratis Supabase:</b> project yang tidak aktif cukup lama dapat dijeda otomatis. Bila aplikasi tiba-tiba tidak bisa login atau memuat data, buka dashboard Supabase dan klik <b>Restore</b>. Untuk aplikasi yang dipakai harian (mis. absensi), pertimbangkan paket berbayar atau pastikan ada aktivitas rutin. Lakukan juga <b>backup</b> data penting secara berkala.</div></div>
 
   <details>
@@ -507,17 +561,13 @@ $$;
 
   <div class="note info"><span class="ic">🧭</span><div>Urutan penting: <b>(A)</b> catat alamat callback dari Supabase → <b>(B)</b> buat kunci di Google → <b>(C)</b> tempel kunci ke Supabase → <b>(D)</b> daftarkan alamat situs.</div></div>
 
-  <div class="illus">
-    <p class="cap">Ilustrasi · apa yang terjadi saat tombol "Masuk dengan Google" diklik</p>
-    <ol class="seq">
-      <li><div class="dot c-pp">🖱️</div><div class="tx"><span class="who c-pp">Anda</span><b>Klik "Masuk dengan Google"</b><span class="d">Tombol di situs memanggil <code>signInWithOAuth</code>.</span></div></li>
-      <li><div class="dot c-cf">🔀</div><div class="tx"><span class="who c-cf">Situs Anda</span><b>Dialihkan ke halaman Google</b><span class="d">Browser berpindah sebentar ke <code>accounts.google.com</code>.</span></div></li>
-      <li><div class="dot c-gg">📧</div><div class="tx"><span class="who c-gg">Google</span><b>Pilih akun Gmail lalu izinkan</b><span class="d">Google memastikan Anda pemilik akun. Kata sandi tidak pernah dilihat aplikasi.</span></div></li>
-      <li><div class="dot c-gg">🔑</div><div class="tx"><span class="who c-gg">Google</span><b>Mengirim kode ke Supabase</b><span class="d">Dikirim ke alamat callback <code>…supabase.co/auth/v1/callback</code>. Karena itu alamat ini wajib didaftarkan di Google. <i>(Salah di sini → <code>redirect_uri_mismatch</code>)</i></span></div></li>
-      <li><div class="dot c-sb">🧾</div><div class="tx"><span class="who c-sb">Supabase</span><b>Membuat pengguna dan sesi</b><span class="d">Pengguna baru dicatat, profil terisi otomatis oleh trigger, lalu sesi login diterbitkan.</span></div></li>
-      <li><div class="dot c-ok">🏠</div><div class="tx"><span class="who c-cf">Situs Anda</span><b>Kembali ke situs dalam keadaan sudah masuk</b><span class="d">Browser dikembalikan ke alamat yang terdaftar di Site URL / Redirect URLs. <i>(Salah di sini → kembali ke alamat yang keliru)</i></span></div></li>
-    </ol>
-    <p class="sub">Hampir semua error login terjadi di langkah 4 atau 6, yaitu alamat yang belum didaftarkan. Dokumentasi resmi: <a class="ext" href="https://supabase.com/docs/guides/auth/social-login/auth-google" target="_blank" rel="noopener noreferrer">Supabase · Login with Google ↗</a></p>
+  <h3>Alur login: apa yang terjadi saat tombol ditekan?</h3>
+  <div class="flowx" style="--n:5">
+    <div class="fx"><span class="ico">🖱️</span><b>Klik tombol</b><small>Pengguna menekan "Masuk dengan Google"</small></div>
+    <div class="fx"><span class="ico">🔐</span><b>Pilih akun Gmail</b><small>Layar resmi Google meminta izin</small></div>
+    <div class="fx"><span class="ico">🔁</span><b>Callback ke Supabase</b><small>Google mengirim bukti login ke alamat callback</small></div>
+    <div class="fx"><span class="ico">🎟️</span><b>Sesi dibuat</b><small>Supabase membuat sesi dan mengembalikan pengguna ke situs Anda</small></div>
+    <div class="fx"><span class="ico">✅</span><b>Berhasil masuk</b><small>Aplikasi menampilkan nama dan foto pengguna</small></div>
   </div>
 
   <h3>A. Catat alamat callback Supabase</h3>
@@ -530,10 +580,10 @@ $$;
 
   <h3>B. Buat OAuth Client di Google Cloud</h3>
   <ol class="s">
-    <li>Buka <code>console.cloud.google.com</code>, buat <b>project baru</b> (mis. "Aplikasi Saya").</li>
+    <li>Buka <a href="https://console.cloud.google.com/" target="_blank" rel="noopener noreferrer"><code>console.cloud.google.com</code></a>, buat <b>project baru</b> (mis. "Aplikasi Saya").</li>
     <li>Menu <b>APIs &amp; Services → OAuth consent screen</b> (atau <b>Google Auth Platform</b>). Pilih <b>External</b>, isi nama aplikasi, email dukungan, dan email kontak developer.</li>
     <li>Di bagian scope, cukup <code>openid</code>, <code>email</code>, <code>profile</code> (bawaan, tidak perlu verifikasi Google).</li>
-    <li>Menu <b>Credentials → Create Credentials → OAuth client ID</b> → tipe <b>Web application</b>.</li>
+    <li>Buka <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer">halaman Credentials</a> → <b>Create Credentials → OAuth client ID</b> → tipe <b>Web application</b>.</li>
     <li><b>Authorized JavaScript origins</b> – tambahkan alamat situs:</li>
   </ol>
   <div class="codebox"><span class="lbl">Authorized JavaScript origins</span><button>Salin</button>
@@ -633,19 +683,14 @@ http://localhost:5500/**</pre></div>
 <section class="step" id="s4">
   <div class="head"><div class="badge" style="background:var(--cf)">4</div>
     <h2>Tayangkan di Cloudflare Pages<small>Deploy otomatis dari GitHub</small></h2></div>
-  <div class="illus">
-    <p class="cap">Ilustrasi · alur penayangan otomatis</p>
-    <div class="fl">
-      <div class="nd"><div class="ico c-gh">🧑‍💻</div><b>Anda ubah file</b><small>lalu simpan / push ke <code>main</code></small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-cf">⚙️</div><b>Cloudflare membangun</b><small>otomatis, ± 1 menit</small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-ok">🌍</div><b>Situs diperbarui</b><small><code>nama.pages.dev</code></small></div>
-    </div>
-    <p class="sub">Tidak perlu unggah ulang ke hosting. Cukup simpan perubahan di GitHub, situs ikut berubah.</p>
+  <div class="flowx">
+    <div class="fx"><span class="ico">💻</span><b>Ubah kode</b><small>Edit file aplikasi Anda</small></div>
+    <div class="fx"><span class="ico">⬆️</span><b>Push ke GitHub</b><small>Commit ke branch <code>main</code></small></div>
+    <div class="fx"><span class="ico">⚙️</span><b>Cloudflare bekerja</b><small>Mengambil kode dan menerbitkannya otomatis</small></div>
+    <div class="fx"><span class="ico">🌍</span><b>Situs terbaru live</b><small>Tayang di <code>pages.dev</code></small></div>
   </div>
   <ol class="s">
-    <li>Masuk ke <code>dash.cloudflare.com</code> → <b>Workers &amp; Pages</b> → <b>Create application</b>.</li>
+    <li>Masuk ke <a href="https://dash.cloudflare.com/" target="_blank" rel="noopener noreferrer"><code>dash.cloudflare.com</code></a> → <b>Workers &amp; Pages</b> → <b>Create application</b>.</li>
     <li>Pilih tab/opsi <b>Pages</b> → <b>Import an existing Git repository</b> (bila tampilan Anda menawarkan alur "Workers", cari tautan kecil untuk Pages).</li>
     <li>Klik <b>Connect GitHub</b>, izinkan Cloudflare membaca repository <span class="ph">nama-aplikasi</span> saja.</li>
     <li>Pilih repository, klik <b>Begin setup</b>.</li>
@@ -672,20 +717,14 @@ http://localhost:5500/**</pre></div>
 <section class="step" id="domain">
   <div class="head"><div class="badge" style="background:#0ea5e9">+</div>
     <h2>Pasang domain sendiri<small>Opsional: ganti <code>pages.dev</code> dengan <code>aplikasi.domainanda.com</code></small></h2></div>
+  <div class="flowx">
+    <div class="fx"><span class="ico">🧑‍💻</span><b>Pengunjung mengetik</b><small><code>app.domainanda.com</code></small></div>
+    <div class="fx"><span class="ico">📒</span><b>DNS mengarahkan</b><small>Rekaman CNAME menunjuk ke <code>pages.dev</code></small></div>
+    <div class="fx"><span class="ico">☁️</span><b>Cloudflare menyajikan</b><small>Isi situs diambil dari project Pages Anda</small></div>
+    <div class="fx"><span class="ico">🔒</span><b>HTTPS otomatis</b><small>Sertifikat dibuat gratis oleh Cloudflare</small></div>
+  </div>
 
   <div class="note info"><span class="ic">🧭</span><div>Pastikan situs sudah berhasil tayang di <code>pages.dev</code> dan login Gmail sudah berjalan <b>sebelum</b> memasang domain. Jadi bila ada masalah, mudah dipisahkan penyebabnya.</div></div>
-
-  <div class="illus">
-    <p class="cap">Ilustrasi · bagaimana alamat domain sampai ke situs Anda</p>
-    <div class="fl">
-      <div class="nd"><div class="ico c-pp">⌨️</div><b>Pengunjung mengetik</b><small><code>app.domainanda.com</code></small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-sky">📇</div><b>DNS (buku telepon)</b><small>CNAME → <code>nama.pages.dev</code></small></div>
-      <div class="ar">➜</div>
-      <div class="nd"><div class="ico c-cf">☁️</div><b>Cloudflare Pages</b><small>menampilkan aplikasi + HTTPS</small></div>
-    </div>
-    <p class="sub">DNS hanya "menunjukkan jalan". Isi situs tetap dari Cloudflare, jadi alamat <code>pages.dev</code> lama tetap bisa dipakai sebagai cadangan.</p>
-  </div>
 
   <h3>Pilih skenario Anda</h3>
   <div class="grid2">
@@ -782,22 +821,6 @@ http://localhost:5500/**</pre></div>
   <label class="chk"><input type="checkbox" data-step="5"> Uji coba berhasil, aplikasi live 🎉</label>
 </section>
 
-<!-- TAUTAN PENTING -->
-<section class="step" id="tautan">
-  <div class="head"><div class="badge" style="background:var(--brand2)">🔗</div>
-    <h2>Tautan penting<small>Klik untuk membuka di tab baru</small></h2></div>
-  <div class="links">
-    <a class="lk" href="https://github.com/new" target="_blank" rel="noopener noreferrer"><span class="i c-gh">🐙</span><span><b>GitHub · Buat repository</b><small>github.com/new</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer"><span class="i c-sb">⚡</span><span><b>Supabase · Dashboard</b><small>supabase.com/dashboard</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://supabase.com/docs/guides/auth/social-login/auth-google" target="_blank" rel="noopener noreferrer"><span class="i c-sb">📘</span><span><b>Supabase · Panduan login Google</b><small>supabase.com/docs/guides/auth/social-login/auth-google</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer"><span class="i c-gg">🔐</span><span><b>Google Cloud · Credentials</b><small>console.cloud.google.com/apis/credentials</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://dash.cloudflare.com/" target="_blank" rel="noopener noreferrer"><span class="i c-cf">☁️</span><span><b>Cloudflare · Dashboard</b><small>dash.cloudflare.com</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://developers.cloudflare.com/pages/" target="_blank" rel="noopener noreferrer"><span class="i c-cf">📘</span><span><b>Cloudflare Pages · Dokumentasi</b><small>developers.cloudflare.com/pages</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://developers.cloudflare.com/pages/configuration/custom-domains/" target="_blank" rel="noopener noreferrer"><span class="i c-sky">🌐</span><span><b>Cloudflare Pages · Domain sendiri</b><small>developers.cloudflare.com/pages/configuration/custom-domains</small></span><span class="go">↗</span></a>
-    <a class="lk" href="https://docs.github.com/pages" target="_blank" rel="noopener noreferrer"><span class="i c-pp">📗</span><span><b>GitHub Pages · Dokumentasi</b><small>docs.github.com/pages</small></span><span class="go">↗</span></a>
-  </div>
-</section>
-
 <!-- BANTUAN -->
 <section class="step" id="bantuan">
   <div class="head"><div class="badge" style="background:var(--bad)">?</div>
@@ -830,7 +853,7 @@ http://localhost:5500/**</pre></div>
   <div class="head"><div class="badge" style="background:#8b5cf6">★</div>
     <h2>Tayangkan panduan ini di GitHub Pages<small>Halaman ini sendiri bisa live gratis</small></h2></div>
   <ol class="s">
-    <li>Buat repository baru, mis. <span class="ph">panduan-instalasi</span> (harus <b>Public</b> pada akun gratis).</li>
+    <li>Buat repository baru di <a href="https://github.com/new" target="_blank" rel="noopener noreferrer">github.com/new</a>, mis. <span class="ph">panduan-instalasi</span> (harus <b>Public</b> pada akun gratis).</li>
     <li>Unggah file ini dengan nama <code>index.html</code>.</li>
     <li>Buka <b>Settings → Pages</b>. Pada <b>Build and deployment</b> pilih <b>Source: Deploy from a branch</b>, <b>Branch: main</b>, folder <b>/ (root)</b>, lalu <b>Save</b>.</li>
     <li>Tunggu 1–2 menit. Panduan tayang di:</li>
@@ -840,15 +863,41 @@ http://localhost:5500/**</pre></div>
   <div class="note tip"><span class="ic">🎯</span><div>Bila repository diberi nama <code>USERNAME.github.io</code>, alamatnya menjadi <code>https://USERNAME.github.io/</code> tanpa nama folder.</div></div>
 </section>
 
+<!-- TAUTAN RESMI -->
+<section class="step" id="tautan">
+  <div class="head"><div class="badge" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">📚</div>
+    <h2>Tautan resmi &amp; bacaan lanjutan<small>Dokumentasi dari penyedia layanan (terbuka di tab baru)</small></h2></div>
+  <div class="qgrid">
+    <a class="qcard" style="--c:#6e7681" href="https://docs.github.com/en/pages" target="_blank" rel="noopener noreferrer"><span class="qi">🐙</span><b>GitHub Pages</b><small>Menayangkan situs dari repository</small></a>
+    <a class="qcard" style="--c:#3ecf8e" href="https://supabase.com/docs/guides/auth/social-login/auth-google" target="_blank" rel="noopener noreferrer"><span class="qi">🔑</span><b>Login Google di Supabase</b><small>Panduan resmi Google OAuth</small></a>
+    <a class="qcard" style="--c:#3ecf8e" href="https://supabase.com/docs/reference/javascript/auth-signinwithoauth" target="_blank" rel="noopener noreferrer"><span class="qi">🧩</span><b>signInWithOAuth</b><small>Referensi fungsi supabase-js</small></a>
+    <a class="qcard" style="--c:#3ecf8e" href="https://supabase.com/docs/guides/database/postgres/row-level-security" target="_blank" rel="noopener noreferrer"><span class="qi">🛡️</span><b>Row Level Security</b><small>Mengamankan data per pengguna</small></a>
+    <a class="qcard" style="--c:#f38020" href="https://developers.cloudflare.com/pages/" target="_blank" rel="noopener noreferrer"><span class="qi">☁️</span><b>Cloudflare Pages</b><small>Dokumentasi lengkap</small></a>
+    <a class="qcard" style="--c:#f38020" href="https://developers.cloudflare.com/pages/configuration/custom-domains/" target="_blank" rel="noopener noreferrer"><span class="qi">🌐</span><b>Custom domain Pages</b><small>Subdomain dan domain utama</small></a>
+    <a class="qcard" style="--c:#4285f4" href="https://support.google.com/cloud/answer/6158849" target="_blank" rel="noopener noreferrer"><span class="qi">🔐</span><b>OAuth 2.0 Google</b><small>Consent screen &amp; kredensial</small></a>
+  </div>
+</section>
 </main>
 </div>
 
-<button class="up" id="up" aria-label="Kembali ke atas">↑</button>
-
-<footer>
-  <div>Copyright © <span id="yr">2026</span> <b>Ahmad Dawami</b></div>
-  <div style="margin-top:4px">Dilarang menyalin, memperbanyak, atau menyebarkan panduan ini tanpa izin tertulis dari penulis.</div>
+<footer class="foot">
+  <div class="copy">© 2026 Ahmad Dawami. Hak cipta dilindungi undang-undang.</div>
+  <small>Dilarang menyalin atau menyebarluaskan panduan ini tanpa izin penulis. Nama dan logo GitHub, Supabase, Cloudflare, dan Google adalah milik masing-masing pemiliknya.</small>
 </footer>
+<button class="fab" id="fab" aria-haspopup="dialog" aria-controls="sheet" aria-expanded="false">
+  <span class="fi">☰</span>
+  <span class="ft"><small>Daftar isi · <span id="fabpct">0%</span></small><b id="fabtxt">Mulai dari sini</b></span>
+</button>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Daftar isi">
+  <div class="sheet-bg" id="sheetbg"></div>
+  <div class="sheet-box">
+    <div class="grab"></div>
+    <div class="sheet-h"><b>Daftar isi</b><span class="sp" id="sheetpct">0%</span><button id="sheetx" aria-label="Tutup daftar isi">✕</button></div>
+    <div class="sheet-prog"><i id="sheetbar"></i></div>
+    <div class="sheet-list" id="sheetlist"></div>
+  </div>
+</div>
+<button class="totop" id="totop" aria-label="Kembali ke atas">↑</button>
 
 <script>
 (function(){
@@ -896,24 +945,103 @@ http://localhost:5500/**</pre></div>
   });
   render();
 
-  // Semua tautan luar dibuka di tab baru
-  document.querySelectorAll('a[href^="http"]').forEach(function(a){
-    a.target='_blank'; a.rel='noopener noreferrer';
+  // Semua tautan eksternal dibuka di tab baru
+  [].forEach.call(document.querySelectorAll('a[href^="http"]'),function(a){
+    a.target='_blank'; a.rel='noopener noreferrer'; a.classList.add('ext');
   });
-  // Tahun hak cipta otomatis
-  var yr=document.getElementById('yr'); if(yr) yr.textContent=new Date().getFullYear();
+
   // Animasi muncul saat digulir
-  var els=[].slice.call(document.querySelectorAll('.step,.illus'));
+  var steps=[].slice.call(document.querySelectorAll('section.step'));
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){
-      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+      es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
     },{threshold:.06});
-    els.forEach(function(e){io.observe(e);});
-  } else { els.forEach(function(e){e.classList.add('in');}); }
+    steps.forEach(function(x){io.observe(x)});
+
+    // Menu samping menandai bagian yang sedang dibaca
+    var links={};
+    [].forEach.call(document.querySelectorAll('#toc a[href^="#"]'),function(a){links[a.getAttribute('href').slice(1)]=a});
+    var io2=new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(!e.isIntersecting) return;
+        Object.keys(links).forEach(function(k){links[k].classList.remove('active')});
+        var l=links[e.target.id];
+        if(l){ l.classList.add('active');
+          if(innerWidth<=860){ try{ l.scrollIntoView({inline:'center',block:'nearest'}); }catch(x){} } }
+      });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    steps.forEach(function(x){io2.observe(x)});
+  } else {
+    steps.forEach(function(x){x.classList.add('in')});
+  }
+
   // Tombol kembali ke atas
-  var up=document.getElementById('up');
-  window.addEventListener('scroll',function(){up.classList.toggle('show',window.scrollY>600);},{passive:true});
-  up.onclick=function(){window.scrollTo({top:0,behavior:'smooth'});};
+  var tt=document.getElementById('totop');
+  addEventListener('scroll',function(){tt.classList.toggle('show',scrollY>600)},{passive:true});
+  tt.onclick=function(){scrollTo({top:0,behavior:'smooth'})};
+})();
+</script>
+<script>
+(function(){
+  var fab=document.getElementById('fab'), sheet=document.getElementById('sheet'),
+      list=document.getElementById('sheetlist'), fabtxt=document.getElementById('fabtxt');
+  var subs={gambaran:'Cara kerja semua layanan',s0:'Siapkan akun yang dibutuhkan',s1:'Unggah kode aplikasi',
+    s2:'Database, tabel, dan keamanan',s3:'Login dengan Google OAuth',s4:'Tayang otomatis dari GitHub',
+    domain:'Opsional: pakai domain sendiri',s5:'Uji coba dan checklist akhir',bantuan:'Solusi error yang sering muncul',
+    'panduan-ini':'Tayangkan panduan ini di GitHub Pages',tautan:'Dokumentasi resmi (tab baru)'};
+  function pct(){ var t=document.getElementById('pct').textContent;
+    document.getElementById('fabpct').textContent=t; document.getElementById('sheetpct').textContent=t;
+    document.getElementById('sheetbar').style.width=document.getElementById('barfill').style.width; }
+  function titleOf(a){ var n=a.querySelector('.n'); return a.textContent.replace(n?n.textContent:'','').trim(); }
+  function build(){
+    list.innerHTML='';
+    [].forEach.call(document.querySelectorAll('#toc a[href^="#"]'),function(a){
+      var id=a.getAttribute('href').slice(1), n=a.querySelector('.n');
+      var row=document.createElement('a');
+      row.href='#'+id;
+      row.className='sl'+(a.classList.contains('done')?' done':'')+(a.classList.contains('active')?' active':'');
+      var no=document.createElement('span'); no.className='sn';
+      no.textContent=a.classList.contains('done')?'✓':(n?n.textContent:'•');
+      var tx=document.createElement('span'); tx.className='st';
+      var b=document.createElement('b'); b.textContent=titleOf(a);
+      var sm=document.createElement('small'); sm.textContent=subs[id]||'';
+      tx.appendChild(b); tx.appendChild(sm); row.appendChild(no); row.appendChild(tx);
+      row.addEventListener('click',close);
+      list.appendChild(row);
+    });
+  }
+  function open(){
+    build(); pct();
+    sheet.classList.add('open'); fab.setAttribute('aria-expanded','true');
+    document.body.style.overflow='hidden';
+    var cur=list.querySelector('.active');
+    if(cur){ try{ cur.scrollIntoView({block:'center'}); }catch(e){} }
+  }
+  function close(){
+    sheet.classList.remove('open'); fab.setAttribute('aria-expanded','false');
+    document.body.style.overflow='';
+  }
+  fab.onclick=open;
+  document.getElementById('sheetbg').onclick=close;
+  document.getElementById('sheetx').onclick=close;
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') close(); });
+  window.addEventListener('resize',function(){ if(innerWidth>860) close(); });
+
+  // Label tombol mengikuti bagian yang sedang dibaca
+  var secs=[].slice.call(document.querySelectorAll('section.step[id]'));
+  function setLabel(id){
+    var a=document.querySelector('#toc a[href="#'+id+'"]');
+    if(a) fabtxt.textContent=titleOf(a);
+  }
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(es){
+      es.forEach(function(e){ if(e.isIntersecting) setLabel(e.target.id); });
+    },{rootMargin:'-30% 0px -60% 0px'});
+    secs.forEach(function(x){io.observe(x)});
+  }
+  // Sinkronkan persentase saat checklist berubah
+  document.addEventListener('change',function(e){ if(e.target&&e.target.matches&&e.target.matches('.chk input')) setTimeout(pct,0); });
+  pct();
 })();
 </script>
 </body>
