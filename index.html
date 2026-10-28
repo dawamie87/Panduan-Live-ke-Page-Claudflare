@@ -237,6 +237,9 @@ pre{max-width:100%;-webkit-overflow-scrolling:touch}
   h3{font-size:16px}
   section.step{padding:18px 14px}
 }
+.statfoot{display:inline-block;margin-bottom:10px;padding:6px 14px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font-size:14px}
+.statfoot b{color:var(--brand)}
+[hidden]{display:none!important}
 </style>
 </head>
 <body>
@@ -258,6 +261,7 @@ pre{max-width:100%;-webkit-overflow-scrolling:touch}
       <span class="chip">⏱ ± 45 menit</span>
       <span class="chip">💸 Bisa 100% gratis</span>
       <span class="chip">📱 Tanpa server sendiri</span>
+      <span class="chip" id="statchip" hidden>👀 <b id="stVis">0</b> pembaca · <b id="stViews">0</b>× dibuka</span>
     </div>
     <div class="flow">
       <b>GitHub</b><em>→</em><b>Supabase</b><em>→</em><b>Google Login</b><em>→</em><b>Cloudflare Pages</b><em>→</em><b>🎉 Live</b>
@@ -882,8 +886,9 @@ http://localhost:5500/**</pre></div>
 </div>
 
 <footer class="foot">
-  <div class="copy">© 2026 Ahmad Dawami. Hak cipta dilindungi undang-undang.</div>
-  <small>Dilarang menyalin atau menyebarluaskan panduan ini tanpa izin penulis. Nama dan logo GitHub, Supabase, Cloudflare, dan Google adalah milik masing-masing pemiliknya.</small>
+  <div class="statfoot" id="statfoot" hidden>👀 Sudah dibaca oleh <b id="stVis2">0</b> orang · dibuka <b id="stViews2">0</b> kali</div>
+  <div class="copy">© 2026 Ahmad Dawami</div>
+  <small>Panduan ini boleh dibagikan ke mana saja, semoga bermanfaat dan kita sama-sama makin pintar 🤍<br>Nama dan logo GitHub, Supabase, Cloudflare, dan Google adalah milik masing-masing pemiliknya.</small>
 </footer>
 <button class="fab" id="fab" aria-haspopup="dialog" aria-controls="sheet" aria-expanded="false">
   <span class="fi">☰</span>
@@ -1056,6 +1061,52 @@ http://localhost:5500/**</pre></div>
   addEventListener('resize',baca);
   addEventListener('load',baca);
   baca();
+})();
+</script>
+<script>
+(function(){
+  // ===== ISI 2 BARIS INI SETELAH SQL DI SUPABASE DIJALANKAN =====
+  var STATS = {
+    url: '',   // contoh: 'https://abcdxyz.supabase.co'
+    key: '',   // kunci publik (anon / publishable)
+    id:  'panduan'
+  };
+  // ================================================================
+  if(!STATS.url || !STATS.key) return;
+
+  var base = STATS.url.replace(/\/+$/,'');
+  var H = {apikey:STATS.key, Authorization:'Bearer '+STATS.key, 'Content-Type':'application/json'};
+
+  // Buka halaman dengan tambahan #saya sekali saja agar kunjungan Anda sendiri tidak dihitung
+  try{ if(location.hash==='#saya') localStorage.setItem('pv_skip','1'); }catch(e){}
+
+  var skip=false, isNew=false, counted=false;
+  try{
+    skip    = !!localStorage.getItem('pv_skip');
+    isNew   = !localStorage.getItem('pv_seen');
+    counted = !!sessionStorage.getItem('pv_counted');   // refresh di tab yang sama tidak dihitung lagi
+  }catch(e){}
+
+  var hitung = !skip && !counted;
+  var req = hitung
+    ? fetch(base+'/rest/v1/rpc/hit_page',{method:'POST',headers:H,body:JSON.stringify({p_id:STATS.id,p_new_visitor:isNew})})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(a){ var x=Array.isArray(a)?a[0]:a; return x?{v:x.total_views,u:x.total_visitors}:null; })
+    : fetch(base+'/rest/v1/page_stats?id=eq.'+encodeURIComponent(STATS.id)+'&select=views,visitors',{headers:H})
+        .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+        .then(function(a){ var x=a&&a[0]; return x?{v:x.views,u:x.visitors}:null; });
+
+  req.then(function(d){
+    if(!d) return;
+    var f=function(n){ try{ return Number(n).toLocaleString('id-ID'); }catch(e){ return String(n); } };
+    document.getElementById('stVis').textContent=f(d.u);
+    document.getElementById('stViews').textContent=f(d.v);
+    document.getElementById('stVis2').textContent=f(d.u);
+    document.getElementById('stViews2').textContent=f(d.v);
+    document.getElementById('statchip').hidden=false;
+    document.getElementById('statfoot').hidden=false;
+    if(hitung){ try{ sessionStorage.setItem('pv_counted','1'); localStorage.setItem('pv_seen','1'); }catch(e){} }
+  }).catch(function(){ /* gagal memuat statistik: biarkan tersembunyi */ });
 })();
 </script>
 </body>
