@@ -214,7 +214,8 @@ pre{max-width:100%;-webkit-overflow-scrolling:touch}
   .grab{width:44px;height:5px;border-radius:99px;background:var(--line);margin:10px auto 2px;flex:none}
   .sheet-h{display:flex;align-items:center;gap:10px;padding:6px 8px 8px 20px;flex:none}
   .sheet-h b{font-size:18px;flex:1}
-  .sheet-h .sp{font-weight:800;color:var(--brand);font-size:14px}
+  .sheet-h .sp{font-weight:800;color:var(--brand);font-size:14px;margin-right:-6px}
+  .sheet-h .sp2{font-size:12px;color:var(--muted)}
   .sheet-h button{width:44px;height:44px;border:0;border-radius:50%;background:transparent;color:var(--ink);font-size:20px;cursor:pointer}
   .sheet-prog{height:6px;background:var(--line);margin:0 20px 8px;border-radius:99px;overflow:hidden;flex:none}
   .sheet-prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--brand),var(--brand2))}
@@ -244,7 +245,7 @@ pre{max-width:100%;-webkit-overflow-scrolling:touch}
   <div class="top-in">
     <div class="logo">Panduan<span>Instalasi</span></div>
     <div class="bar" aria-hidden="true"><i id="barfill"></i></div>
-    <div class="pct" id="pct">0%</div>
+    <div class="pct" id="pct" title="Progres membaca">0%</div>
     <button class="tbtn" id="theme" aria-label="Ganti tema">🌓</button>
   </div>
 </header>
@@ -886,13 +887,13 @@ http://localhost:5500/**</pre></div>
 </footer>
 <button class="fab" id="fab" aria-haspopup="dialog" aria-controls="sheet" aria-expanded="false">
   <span class="fi">☰</span>
-  <span class="ft"><small>Daftar isi · <span id="fabpct">0%</span></small><b id="fabtxt">Mulai dari sini</b></span>
+  <span class="ft"><small>Daftar isi · <span id="fabpct">0%</span> dibaca</small><b id="fabtxt">Mulai dari sini</b></span>
 </button>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Daftar isi">
   <div class="sheet-bg" id="sheetbg"></div>
   <div class="sheet-box">
     <div class="grab"></div>
-    <div class="sheet-h"><b>Daftar isi</b><span class="sp" id="sheetpct">0%</span><button id="sheetx" aria-label="Tutup daftar isi">✕</button></div>
+    <div class="sheet-h"><b>Daftar isi</b><span class="sp" id="sheetpct">0%</span><span class="sp2">dibaca</span><button id="sheetx" aria-label="Tutup daftar isi">✕</button></div>
     <div class="sheet-prog"><i id="sheetbar"></i></div>
     <div class="sheet-list" id="sheetlist"></div>
   </div>
@@ -931,9 +932,6 @@ http://localhost:5500/**</pre></div>
       var a=document.querySelector('#toc a[data-s="'+s+'"]');
       if(a) a.classList.toggle('done',b.checked);
     });
-    var p=Math.round(n/boxes.length*100);
-    document.getElementById('barfill').style.width=p+'%';
-    document.getElementById('pct').textContent=p+'%';
   }
   boxes.forEach(function(b){
     b.checked=!!saved[b.dataset.step];
@@ -1041,7 +1039,23 @@ http://localhost:5500/**</pre></div>
   }
   // Sinkronkan persentase saat checklist berubah
   document.addEventListener('change',function(e){ if(e.target&&e.target.matches&&e.target.matches('.chk input')) setTimeout(pct,0); });
-  pct();
+  // Progres membaca: seberapa jauh halaman sudah dibaca (angka terjauh yang dicapai)
+  var maxRead=0;
+  function baca(){
+    var de=document.documentElement;
+    var total=de.scrollHeight-innerHeight;
+    var now=total>0 ? Math.round((scrollY/total)*100) : 100;
+    now=Math.max(0,Math.min(100,now));
+    if(now>maxRead) maxRead=now;
+    document.getElementById('barfill').style.width=maxRead+'%';
+    document.getElementById('pct').textContent=maxRead+'%';
+    document.getElementById('pct').title='Sudah dibaca '+maxRead+'%';
+    pct();
+  }
+  addEventListener('scroll',baca,{passive:true});
+  addEventListener('resize',baca);
+  addEventListener('load',baca);
+  baca();
 })();
 </script>
 </body>
